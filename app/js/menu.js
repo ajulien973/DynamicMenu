@@ -5,6 +5,48 @@ function Node(id, name, children) {
 }
 
 function MenuMaker(options) {
+	this.source = options.source;
+	this.view = options.view;
+}
+
+MenuMaker.prototype = {
+	init : function() {
+		var nodes = this.source.nodes;
+		for(var i = 0; i < nodes.length; i++) {
+			var node = new Node(nodes[i].id, nodes[i].name, nodes[i].children);
+			this.view.addNode(node, this.view.getEl());
+		}
+	}
+}
+
+MenuMaker.View = function(options) {
+	this.options = options;
+}
+
+MenuMaker.View.prototype = {
+	getEl : function() {
+		return document.getElementById(this.options.el);
+	},
+	addNode : function(node, el) {
+		var li = document.createElement("LI");
+		var new_link = document.createElement('a');
+		new_link.setAttribute('href', '#');
+		var text = document.createTextNode(node.name);
+		new_link.appendChild(text);
+		li.appendChild(new_link); 
+		if(node.children.length > 0) {
+			var ul = document.createElement("UL");
+			for(var i = 0; i < node.children.length; i++) {
+				this.addNode(node.children[i], ul);
+			}
+			li.appendChild(ul);
+		}
+		el.appendChild(li);
+	}
+}
+
+window.onload = function(){
+	this.id = "menu";
 	this.source = {
 		"lastModified" : 1428767401000,
 		"name" : "simple menu",
@@ -66,50 +108,10 @@ function MenuMaker(options) {
 				"children" : []
 			}]
 	};
-	this.view = options.view;
-}
-
-MenuMaker.prototype = {
-	init : function() {
-		var nodes = this.source.nodes;
-		for(var i = 0; i < nodes.length; i++) {
-			var node = new Node(nodes[i].id, nodes[i].name, nodes[i].children);
-			this.view.addNode(node, this.view.getEl());
-		}
-	}
-}
-
-MenuMaker.View = function(options) {
-	this.options = options;
-}
-
-MenuMaker.View.prototype = {
-	getEl : function() {
-		return document.getElementById(this.options.el);
-	},
-	addNode : function(node, el) {
-		var li = document.createElement("LI");
-		var new_link = document.createElement('a');
-		new_link.setAttribute('href', '#');
-		var text = document.createTextNode(node.name);
-		new_link.appendChild(text);
-		li.appendChild(new_link); 
-		if(node.children.length > 0) {
-			var ul = document.createElement("UL");
-			for(var i = 0; i < node.children.length; i++) {
-				this.addNode(node.children[i], ul);
-			}
-			li.appendChild(ul);
-		}
-		el.appendChild(li);
-	}
-}
-
-window.onload = function(){
-	this.id = "menu";
 	this.menu = new MenuMaker({
+		source : this.source,
 		view : new MenuMaker.View({
-			el : "menu"
+			el : this.id
 		})
 	});
 	this.menu.init();

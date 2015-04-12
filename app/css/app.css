@@ -1,26 +1,31 @@
+body {
+	margin : 0em;
+}
+
+
 #####################
 ##### Menu CSS ######
 #####################
 
 
-li ul {
-	width:15em;
-	position:relative;
+ul > li {
+	width : 15em;
+	position : relative;
 }
 
-li ul {
-	width:15em;
-	position: absolute;
-	left: 15em;
-	top: 0;
+li > ul {
+	width : 15em;
+	position : absolute;
+	left : 15em;
+	top : 0;
 	display: none;
 }
 
 ul {
-	width: 15em;
-	margin: 0;
-	padding: 0;
-	list-style: none;
+	width : 15em;
+	margin : 0;
+	padding : 0;
+	list-style : none;
 }
 
 #menu a:link, #menu a:active, #menu a:visited {
@@ -31,18 +36,17 @@ ul {
    	font-size: 12px;
     padding : 5px 5px;
     border : 1px solid #292828;
-    background-color : #111010;
+    background-color : #101010;
  }
 
-#menu a:hover{
-    background-color:#111010;
-    color:#F9F9F9;
+#menu a:hover {
+    background-color : #101010;
+    color : #F9F9F9;
 }
 
 #menu li:hover > ul { 
-	display: block;
+	display : block;
 }
-
 
 
 

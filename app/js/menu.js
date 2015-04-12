@@ -66,7 +66,6 @@ function MenuMaker(options) {
 				"children" : []
 			}]
 	};
-	this.children = [];
 	this.view = options.view;
 }
 
@@ -81,10 +80,7 @@ MenuMaker.prototype = {
 }
 
 MenuMaker.View = function(options) {
-	//this.options = options;
-	this.options = {
-		el : "menu"
-	}
+	this.options = options;
 }
 
 MenuMaker.View.prototype = {
@@ -111,6 +107,10 @@ MenuMaker.View.prototype = {
 
 window.onload = function(){
 	this.id = "menu";
-	this.menu = new MenuMaker({view : new MenuMaker.View({})});
+	this.menu = new MenuMaker({
+		view : new MenuMaker.View({
+			el : "menu"
+		})
+	});
 	this.menu.init();
 }

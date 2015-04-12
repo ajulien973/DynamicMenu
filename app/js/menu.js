@@ -93,8 +93,11 @@ MenuMaker.View.prototype = {
 	},
 	addNode : function(node, el) {
 		var li = document.createElement("LI");
+		var new_link = document.createElement('a');
+		new_link.setAttribute('href', '#');
 		var text = document.createTextNode(node.name);
-		li.appendChild(text); 
+		new_link.appendChild(text);
+		li.appendChild(new_link); 
 		if(node.children.length > 0) {
 			var ul = document.createElement("UL");
 			for(var i = 0; i < node.children.length; i++) {
